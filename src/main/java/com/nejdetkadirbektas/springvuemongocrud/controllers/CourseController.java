@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author nejdetkadirr
@@ -26,6 +27,11 @@ public class CourseController {
         return ResponseEntity.ok(courseRepository.findAll());
     }
 
+    @GetMapping
+    @RequestMapping("/{id}")
+    public ResponseEntity<Optional<Course>> getCourse(@PathVariable("id") String id) {
+        return ResponseEntity.ok(courseRepository.findById(id));
+    }
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseRepository.save(course));
