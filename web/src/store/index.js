@@ -13,12 +13,19 @@ const store = new Vuex.Store({
   mutations: {
     setCourses(state, courses) {
       state.courses = courses
+    },
+    addCourse(state, course) {
+      state.courses.push(course)
     }
   },
   actions: {
     async fetchCourses({commit}) {
       const {data} = await axios.get('/courses')
       commit("setCourses", data);
+    },
+    async createCourse({commit}, course) {
+      const {data} = await axios.post('/courses', course)
+      if (data) commit("addCourse", data)
     }
   },
   modules: {}

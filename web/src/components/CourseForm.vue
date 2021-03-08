@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -43,6 +45,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['createCourse']),
     addGoal() {
       this.course.goals.push(this.goalText)
       this.goalText = ''
@@ -51,7 +54,15 @@ export default {
       this.course.goals.splice(index, 1)
     },
     onSaveForm() {
-      console.log(this.course);
+      try {
+        if(!this.isEdit) {
+          this.createCourse(this.course)
+          this.$router.push('/?createCourse=1')
+        }
+      } catch (error) {
+        this.$route.push('/?createCourseError=1')
+      }
+      
     }
   },
   props: {
