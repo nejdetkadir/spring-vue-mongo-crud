@@ -1,23 +1,27 @@
 <template>
   <div class="row">
-    <Course :course="course" :showDetails="true"/>
+    <Course :course="course" :show-details="true"/>
   </div>
 </template>
 
 <script>
+import axios from "axios"
 import Course from "@/components/CourseCard"
 
 export default {
   data() {
     return {
-      course: {
-        id: "1",
-        name: "Course 1",
-        description: "Course 1 description",
-        instructor: "Instructor",
-        goals: ["lorem", "ipsum", "dolor"]
-      }
+      course: {}
     }
+  },
+  created() {
+    axios.get(`/courses/${this.$route.params.id}`).then(res => {
+      if(res.data) {
+        this.course = res.data
+      } else {
+        this.$router.push('/?unknownCourse=1')
+      }
+    })
   },
   components: {
     Course
