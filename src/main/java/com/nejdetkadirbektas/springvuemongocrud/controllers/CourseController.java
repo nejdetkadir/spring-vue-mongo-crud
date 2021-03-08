@@ -5,6 +5,7 @@ import com.nejdetkadirbektas.springvuemongocrud.repositories.CourseRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class CourseController {
     }
 
     @GetMapping
-    @RequestMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Optional<Course>> getCourse(@PathVariable("id") String id) {
         return ResponseEntity.ok(courseRepository.findById(id));
     }
@@ -41,5 +42,16 @@ public class CourseController {
     @PutMapping
     public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseRepository.save(course));
+    }
+
+    @DeleteMapping
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteCourse(@PathVariable("id") String id, HttpServletResponse response) {
+        if (courseRepository.existsById(id)) {
+            courseRepository.deleteById(id);
+            response.setStatus(200);
+        } else {
+            response.setStatus(500);
+        }
     }
 }
