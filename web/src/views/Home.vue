@@ -1,23 +1,16 @@
 <template>
   <div class="row">
-      <Course :course="course"/>
+      <Course :course="course" v-for="(course, index) in courses" :key="index"/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Course from "@/components/CourseCard"
 
 export default {
-  data() {
-    return {
-      course: {
-        id: "1",
-        name: "Course 1",
-        description: "Course 1 description",
-        instructor: "Instructor",
-        goals: ["lorem", "ipsum", "dolor"]
-      }
-    }
+  computed: {
+    ...mapState(["courses"])
   },
   components: {
     Course
