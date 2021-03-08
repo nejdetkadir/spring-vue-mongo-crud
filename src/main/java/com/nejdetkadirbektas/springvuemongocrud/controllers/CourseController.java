@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/courses")
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CourseController {
 
     private final CourseRepository courseRepository;
@@ -32,8 +32,14 @@ public class CourseController {
     public ResponseEntity<Optional<Course>> getCourse(@PathVariable("id") String id) {
         return ResponseEntity.ok(courseRepository.findById(id));
     }
+
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        return ResponseEntity.ok(courseRepository.save(course));
+    }
+
+    @PutMapping
+    public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseRepository.save(course));
     }
 }
