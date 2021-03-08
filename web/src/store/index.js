@@ -5,15 +5,26 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_PATH || "http://localhost:3000"
-axios.defaults.withCredentials = true
 
 const store = new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    courses: []
+  },
+  mutations: {
+    setCourses(state, courses) {
+      state.courses = courses
+    }
+  },
+  actions: {
+    async fetchCourses({commit}) {
+      const {data} = await axios.get('/courses')
+      commit("setCourses", data);
+    }
+  },
   modules: {}
 })
 
 export default async function init() {
+  store.dispatch("fetchCourses")
   return store
 }
