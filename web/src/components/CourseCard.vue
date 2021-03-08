@@ -17,10 +17,13 @@
 </template>
 
 <script>
+import {mapActions} from "vuex"
+
 export default {
   methods: {
+    ...mapActions(["deleteCourse"]),
     removeCourse(course) {
-      console.log(course);
+      this.deleteCourse(course)
     }
   },
   props: {

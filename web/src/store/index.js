@@ -30,6 +30,10 @@ const store = new Vuex.Store({
     async updateCourse({dispatch}, course) {
       const {data} = await axios.put(`/courses`, course)
       if (data) dispatch("fetchCourses")
+    },
+    async deleteCourse({dispatch}, course) {
+      await axios.delete(`/courses/${course.id}`, course)
+      dispatch("fetchCourses")
     }
   },
   modules: {}
