@@ -3,10 +3,7 @@ package com.nejdetkadirbektas.springvuemongocrud.controllers;
 import com.nejdetkadirbektas.springvuemongocrud.models.Course;
 import com.nejdetkadirbektas.springvuemongocrud.repositories.CourseRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,10 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<List<Course>> getListOfCourses() {
         return ResponseEntity.ok(courseRepository.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        return ResponseEntity.ok(courseRepository.save(course));
     }
 }
