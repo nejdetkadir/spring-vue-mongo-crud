@@ -2,6 +2,7 @@ package com.nejdetkadirbektas.springvuemongocrud.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,9 +15,9 @@ public class Course {
     private String name;
     private String description;
     private String instructor;
-    private HashMap goals;
+    private ArrayList goals;
 
-    public Course(String id, String name, String description, String instructor, HashMap goals) {
+    public Course(String id, String name, String description, String instructor, ArrayList goals) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -56,11 +57,11 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public HashMap getGoals() {
+    public ArrayList getGoals() {
         return goals;
     }
 
-    public void setGoals(HashMap goals) {
+    public void setGoals(ArrayList goals) {
         this.goals = goals;
     }
 }
