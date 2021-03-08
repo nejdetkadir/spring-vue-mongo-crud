@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-      <Course :course="course"/>
+    <Course :course="course" :showDetails="true"/>
   </div>
 </template>
 
