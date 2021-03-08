@@ -26,6 +26,10 @@ const store = new Vuex.Store({
     async createCourse({commit}, course) {
       const {data} = await axios.post('/courses', course)
       if (data) commit("addCourse", data)
+    },
+    async updateCourse({dispatch}, course) {
+      const {data} = await axios.put(`/courses`, course)
+      if (data) dispatch("fetchCourses")
     }
   },
   modules: {}

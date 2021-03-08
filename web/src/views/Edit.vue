@@ -5,18 +5,23 @@
 </template>
 
 <script>
+import axios from "axios"
 import Form from "@/components/CourseForm.vue"
 
 export default {
   data() {
     return {
-      course: {
-        name: 'Edited name',
-        description: 'Edited description',
-        instructor: 'Edited instructor',
-        goals: ["lorem", "ipsum","dolor"]
-      }
+      course: {}
     }
+  },
+  created() {
+    axios.get(`/courses/${this.$route.params.id}`).then(res => {
+      if(res.data) {
+        this.course = res.data
+      } else {
+        this.$router.push('/?unknownCourse=1')
+      }
+    })
   },
   components: {
     Form

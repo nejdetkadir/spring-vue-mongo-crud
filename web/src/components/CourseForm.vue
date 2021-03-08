@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createCourse']),
+    ...mapActions(['createCourse', "updateCourse"]),
     addGoal() {
       this.course.goals.push(this.goalText)
       this.goalText = ''
@@ -58,11 +58,13 @@ export default {
         if(!this.isEdit) {
           this.createCourse(this.course)
           this.$router.push('/?createCourse=1')
+        } else {
+          this.updateCourse(this.course)
+          this.$router.push('/?updateCourse=1')
         }
       } catch (error) {
-        this.$route.push('/?createCourseError=1')
+        this.$route.push('/?courseFormError=1')
       }
-      
     }
   },
   props: {
